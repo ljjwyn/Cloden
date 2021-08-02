@@ -1,7 +1,9 @@
 package com.example.gloden.server;
 
 import com.example.gloden.model.Person;
+import com.example.gloden.model.School;
 import com.example.gloden.model.Teacher;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import java.io.InputStream;
 import java.util.Enumeration;
@@ -54,6 +56,20 @@ public class BeanFactory {
             throw new ExceptionInInitializerError("初始化properties失败!");
         }
     }
+
+    public static void setBean(String key,String beanPath){
+        if (beans.get(key)!=null){
+            System.out.println(beanPath+"===已实例化！");
+        }
+        try {
+            //反射创建对象
+            Object value = Class.forName(beanPath).newInstance();
+            //将对象保存到beans容器中
+            beans.put(key,value);
+        }catch (Exception e) {
+            throw new ExceptionInInitializerError("自动注解类失败！");
+        }
+    }
     /**
      * 根据beans容器获取对象 获取到的都是同一个对象
      * @param beanName 配置的类对应的key
@@ -78,6 +94,11 @@ public class BeanFactory {
         return (T) bean;
     }
 
+    /**
+     * 根据beans容器获取对象 使用类Class对象匹配方式
+     * @param <T> Class类
+     * @return 转型后的实力对象
+     */
     public static <T> T getBean(Class<T> requiredType){
         Enumeration<Object> keys = properties.keys();
         //遍历枚举
@@ -92,10 +113,19 @@ public class BeanFactory {
         return null;
     }
 
+    public static int getBeanCount(){
+        return beans.size();
+    }
+
     public static void main(String[] args) {
-        Person person = (Person) BeanFactory.getBean("person");
-        Person person1 = BeanFactory.getBean("person", Person.class);
-        Teacher person2 = BeanFactory.getBean(Teacher.class);
-        System.out.println(1);
+        System.out.println(BeanFactory.getBeanCount());
+        School school = new School();
+        school.test();
+        System.out.println(BeanFactory.getBeanCount());
+//        Person person = (Person) BeanFactory.getBean("person");
+//        Person person1 = BeanFactory.getBean("person", Person.class);
+        School person2 = BeanFactory.getBean(School.class);
+        System.out.println(BeanFactory.getBeanCount());
+
     }
 }
