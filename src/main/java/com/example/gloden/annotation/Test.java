@@ -5,11 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * @author ljjwyn
- */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Default {
-    String value() default "加载默认类";
+@Target({ElementType.METHOD})
+@Retention(RetentionPolicy.SOURCE)
+public @interface Test {
+    public String value() default "test";
 }

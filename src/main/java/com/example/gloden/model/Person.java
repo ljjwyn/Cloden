@@ -4,7 +4,6 @@ import com.example.gloden.annotation.Default;
 import lombok.Data;
 
 @Data
-@Default
 public class Person {
     private String userName;
     private String userId;

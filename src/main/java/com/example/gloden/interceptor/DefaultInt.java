@@ -1,16 +1,11 @@
 package com.example.gloden.interceptor;
 
-import com.example.gloden.annotation.Default;
 import com.example.gloden.server.BeanFactory;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
-
-import java.lang.reflect.Method;
-import java.sql.SQLOutput;
 import java.util.Locale;
 
 /**
